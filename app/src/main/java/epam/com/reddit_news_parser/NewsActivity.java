@@ -40,6 +40,18 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
         adapter = new NewsAdapter(news, clickListener);
         recyclerView.setAdapter(adapter);
 
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+            }
+        });
+
         startService(intent);
 
         receiver = new BroadcastReceiver() {
@@ -59,7 +71,7 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
     @Override
     public void updateNews(int adapterPosition) { // on adapter scrolled
         intent.putExtra(LOAD_MORE, 1);
-        intent.putExtra(COUNT, 1); // value from adapter
+        intent.putExtra(COUNT, 10);
         startService(intent);
     }
 

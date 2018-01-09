@@ -43,11 +43,11 @@ public class NewsService extends Service {
             public void run() {
                 try {
                     if (loadMore == 1) {
-                        networkHelper.onRequest(OKHttpInstance.getInstance(), 1);
-                        networkHelper.onResponse(count);
+                        networkHelper.onRequest(OKHttpInstance.getInstance(), 1, count);
+                        networkHelper.onResponse();
                     } else {
-                        networkHelper.onRequest(OKHttpInstance.getInstance(), 0);
-                        networkHelper.onResponse(0);
+                        networkHelper.onRequest(OKHttpInstance.getInstance(), 0, 10);
+                        networkHelper.onResponse();
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

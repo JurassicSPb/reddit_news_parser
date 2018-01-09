@@ -19,20 +19,21 @@ import okhttp3.Response;
  */
 
 class NetworkHelper {
-    private static       String url     = "https://www.reddit.com/r/subreddit/top";
+    private static       String url     = "https://www.reddit.com/r/subreddit";
     private static final String jsonEnd = ".json";
     private static final String qCount  = "?count=";
     private static final String after   = "&after=";
     private String responseBody;
     private String afterId;
-    private int count;
+    private int    counter;
     private List<ListItem> news = new ArrayList<>();
 
-    void onRequest(@NonNull OkHttpClient client, int urlState) throws IOException {
-        if (urlState == 0){
+    void onRequest(@NonNull OkHttpClient client, int urlState, int count) throws IOException {
+        if (urlState == 0) {
             url = url + jsonEnd;
         } else {
-            url = url + jsonEnd + qCount + count + after + afterId;
+            counter += count;
+            url = url + jsonEnd + qCount + counter + after + afterId;
         }
 
         final Request request = new Request.Builder()
@@ -42,11 +43,9 @@ class NetworkHelper {
         responseBody = response.body().string();
     }
 
-    void onResponse(int count) throws JSONException {
+    void onResponse() throws JSONException {
         final JSONObject data = new JSONObject(responseBody).getJSONObject("data");
-
         afterId = data.getString("after");
-        this.count = count;
 
         final JSONArray items = data.getJSONArray("children");
 
