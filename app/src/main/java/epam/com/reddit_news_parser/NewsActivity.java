@@ -35,7 +35,7 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new NewsAdapter(news, clickListener);
+        adapter = new NewsAdapter(news, clickListener, this);
         recyclerView.setAdapter(adapter);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
