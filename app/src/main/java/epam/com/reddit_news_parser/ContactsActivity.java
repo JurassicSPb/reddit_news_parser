@@ -45,7 +45,7 @@ public class ContactsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         news = intent.getParcelableExtra("news");
 
-        // TODO: 1/10/18 adapter clicklistener 
+        // TODO: 1/10/18 adapter clicklistener
     }
 
     @Override
