@@ -2,6 +2,7 @@ package epam.com.reddit_news_parser;
 
 import android.Manifest;
 import android.content.ContentResolver;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -25,6 +26,7 @@ public class ContactsActivity extends AppCompatActivity {
     private static int REQUEST_CODE_READ_CONTACTS = 1;
     private ListView contactList;
     private List<String> contacts = new ArrayList<>();
+    private ListItem news;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,6 +41,11 @@ public class ContactsActivity extends AppCompatActivity {
                 new String[]{Manifest.permission.READ_CONTACTS},
                 REQUEST_CODE_READ_CONTACTS
         );
+
+        Intent intent = getIntent();
+        news = intent.getParcelableExtra("news");
+
+        // TODO: 1/10/18 adapter clicklistener 
     }
 
     @Override

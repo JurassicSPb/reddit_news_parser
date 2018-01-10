@@ -26,15 +26,12 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
     private OnListItemClickListener clickListener = new OnListItemClickListener() {
         @Override
         public void onClick(View v, int position) {
-//            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(news.get(position).getUrl())));
-
             Intent intent = new Intent(NewsActivity.this, ContactsActivity.class);
-            intent.putParcelableArrayListExtra("news", new ArrayList<>(news));
+            intent.putExtra("news", news.get(position));
             startActivity(intent);
-            // TODO: 1/10/18 start new activity with contacts list and share news
         }
     };
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
