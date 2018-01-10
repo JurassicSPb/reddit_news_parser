@@ -11,6 +11,7 @@ public class ListItem implements Parcelable {
     private String title;
     private String url;
     private String author;
+    private String image;
 
     public ListItem(String title, String url, String author) {
         this.title = title;
@@ -30,10 +31,19 @@ public class ListItem implements Parcelable {
         return author;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     private ListItem(Parcel in) {
         title = in.readString();
         url = in.readString();
         author = in.readString();
+        image = in.readString();
     }
 
     @Override
@@ -45,6 +55,7 @@ public class ListItem implements Parcelable {
         out.writeString(title);
         out.writeString(url);
         out.writeString(author);
+        out.writeString(image);
     }
 
     public static final Parcelable.Creator<ListItem> CREATOR = new Parcelable.Creator<ListItem>() {

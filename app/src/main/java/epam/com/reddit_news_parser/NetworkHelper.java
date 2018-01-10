@@ -19,12 +19,12 @@ import okhttp3.Response;
  */
 
 class NetworkHelper {
-    private static NetworkHelper networkHelper = new NetworkHelper();
-    private static       String url     = "https://www.reddit.com/r/news/top";
-    private static final String jsonEnd = ".json";
-    private static final String qCount  = "?count=";
-    private static final String after   = "&after=";
-    private static final int    counter = 10;
+    private static       NetworkHelper networkHelper = new NetworkHelper();
+    private static       String        url           = "https://www.reddit.com/r/politics/top";
+    private static final String        jsonEnd       = ".json";
+    private static final String        qCount        = "?count=";
+    private static final String        after         = "&after=";
+    private static final int           counter       = 10;
     private String responseBody;
     private String afterId;
 
@@ -39,7 +39,7 @@ class NetworkHelper {
 
     void onRequest(@NonNull OkHttpClient client, int urlState) throws IOException {
         if (urlState == 0) {
-            url = url + jsonEnd  + qCount + counter;
+            url = url + jsonEnd + qCount + counter;
         } else {
             url = url + jsonEnd + qCount + counter + after + afterId;
         }
@@ -65,6 +65,13 @@ class NetworkHelper {
                     object.getString("url"),
                     object.getString("author")
             );
+
+            final JSONObject image = object.getJSONObject("preview");
+            final JSONArray images = image.getJSONArray("images");
+
+            final JSONObject source = images.getJSONObject(0).getJSONObject("source");
+            listItem.setImage(source.getString("url"));
+
             news.add(listItem);
         }
     }

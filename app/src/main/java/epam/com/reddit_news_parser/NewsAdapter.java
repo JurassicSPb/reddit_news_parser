@@ -1,10 +1,14 @@
 package epam.com.reddit_news_parser;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -34,14 +38,23 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(NewsAdapter.ViewHolder holder, int position) {
+        Context context = holder.image.getContext();
+
         String title = news.get(position).getTitle();
         String author = news.get(position).getAuthor();
         String url = news.get(position).getUrl();
+        String image = news.get(position).getImage();
 
         StringBuilder builder = new StringBuilder();
         builder.append("\n").append(title).append("\n\n").append(author).append("\n\n").append(url).append("\n");
 
         holder.title.setText(builder.toString());
+
+        Picasso.with(context)
+               .load(image)
+               .fit()
+               .centerCrop()
+               .into(holder.image);
     }
 
     @Override
@@ -50,11 +63,13 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     }
 
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private TextView title;
+        private TextView  title;
+        private ImageView image;
 
         ViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.content);
+            image = itemView.findViewById(R.id.image);
             itemView.setOnClickListener(this);
         }
 
