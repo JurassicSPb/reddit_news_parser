@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Reddit politics News</string>
+    <string name="app_name">Reddit politics news</string>
+    <string name="contacts_permission">Contacts permission is needed</string>
+    <string name="contacts">Contacts</string>
 </resources>

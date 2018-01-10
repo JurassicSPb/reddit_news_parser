@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -27,11 +26,15 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
     private OnListItemClickListener clickListener = new OnListItemClickListener() {
         @Override
         public void onClick(View v, int position) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(news.get(position).getUrl())));
+//            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(news.get(position).getUrl())));
+
+            Intent intent = new Intent(NewsActivity.this, ContactsActivity.class);
+            intent.putParcelableArrayListExtra("news", new ArrayList<>(news));
+            startActivity(intent);
+            // TODO: 1/10/18 start new activity with contacts list and share news
         }
     };
-
-
+    
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
