@@ -35,8 +35,14 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(NewsAdapter.ViewHolder holder, int position) {
         String title = news.get(position).getTitle();
+        String selftext = news.get(position).getSelftext();
+        String author = news.get(position).getAuthor();
+        String subreddit = news.get(position).getSubreddit();
 
-        holder.title.setText(title);
+        StringBuilder builder = new StringBuilder();
+        builder.append(title).append("\n\n").append(selftext).append("\n\n").append(author).append("\n\n").append(subreddit);
+
+        holder.title.setText(builder.toString());
     }
 
     @Override
@@ -50,7 +56,7 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
 
         ViewHolder(View itemView) {
             super(itemView);
-            title = itemView.findViewById(R.id.title);
+            title = itemView.findViewById(R.id.content);
             itemView.setOnClickListener(this);
         }
 

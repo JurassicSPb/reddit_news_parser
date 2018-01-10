@@ -19,20 +19,28 @@ import okhttp3.Response;
  */
 
 class NetworkHelper {
-    private static       String url     = "https://www.reddit.com/r/subreddit";
+    private static NetworkHelper networkHelper = new NetworkHelper();
+    private static       String url     = "https://www.reddit.com/r/news/top";
     private static final String jsonEnd = ".json";
     private static final String qCount  = "?count=";
     private static final String after   = "&after=";
+    private static final int    counter = 10;
     private String responseBody;
     private String afterId;
-    private int    counter;
+
     private List<ListItem> news = new ArrayList<>();
 
-    void onRequest(@NonNull OkHttpClient client, int urlState, int count) throws IOException {
+    private NetworkHelper() {
+    }
+
+    public static NetworkHelper getNetworkHelper() {
+        return networkHelper;
+    }
+
+    void onRequest(@NonNull OkHttpClient client, int urlState) throws IOException {
         if (urlState == 0) {
-            url = url + jsonEnd;
+            url = url + jsonEnd  + qCount + counter;
         } else {
-            counter += count;
             url = url + jsonEnd + qCount + counter + after + afterId;
         }
 

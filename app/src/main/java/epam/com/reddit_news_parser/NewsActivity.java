@@ -16,7 +16,6 @@ import java.util.List;
 public class NewsActivity extends AppCompatActivity implements UpdateCallback {
     public final static String BROADCAST_ACTION = "action";
     public final static String LOAD_MORE        = "loadMore";
-    public final static String COUNT            = "count";
     private NewsAdapter       adapter;
     private Intent            intent;
     private BroadcastReceiver receiver;
@@ -33,8 +32,6 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
-        intent = new Intent(this, NewsService.class);
-
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new NewsAdapter(news, clickListener);
@@ -49,10 +46,11 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
+                if (!recyclerView.canScrollVertically(1)) {
+                    updateNews();
+                }
             }
         });
-
-        startService(intent);
 
         receiver = new BroadcastReceiver() {
             @Override
@@ -69,9 +67,16 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
     }
 
     @Override
-    public void updateNews(int adapterPosition) { // on adapter scrolled
+    protected void onStart() {
+        super.onStart();
+
+        intent = new Intent(this, NewsService.class);
+        startService(intent);
+    }
+
+    @Override
+    public void updateNews() {
         intent.putExtra(LOAD_MORE, 1);
-        intent.putExtra(COUNT, 10);
         startService(intent);
     }
 

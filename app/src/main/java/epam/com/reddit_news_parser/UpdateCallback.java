@@ -6,7 +6,7 @@ package epam.com.reddit_news_parser;
 
 public interface UpdateCallback {
 
-    void updateNews(int position);
+    void updateNews();
 
     void stopUpdate();
 }

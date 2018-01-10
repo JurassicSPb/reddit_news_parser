@@ -9,14 +9,14 @@ import android.os.Parcelable;
 
 public class ListItem implements Parcelable {
     private String title;
-    private String thumbnail;
+    private String selftext;
     private String url;
     private String subreddit;
     private String author;
 
-    public ListItem(String title, String thumbnail, String url, String subreddit, String author) {
+    public ListItem(String title, String selftext, String url, String subreddit, String author) {
         this.title = title;
-        this.thumbnail = thumbnail;
+        this.selftext = selftext;
         this.url = url;
         this.subreddit = subreddit;
         this.author = author;
@@ -26,8 +26,8 @@ public class ListItem implements Parcelable {
         return title;
     }
 
-    public String getThumbnail() {
-        return thumbnail;
+    public String getSelftext() {
+        return selftext;
     }
 
     public String getUrl() {
@@ -44,7 +44,7 @@ public class ListItem implements Parcelable {
 
     private ListItem(Parcel in) {
         title = in.readString();
-        thumbnail = in.readString();
+        selftext = in.readString();
         url = in.readString();
         subreddit = in.readString();
         author = in.readString();
@@ -57,7 +57,7 @@ public class ListItem implements Parcelable {
 
     public void writeToParcel(Parcel out, int flags) {
         out.writeString(title);
-        out.writeString(thumbnail);
+        out.writeString(selftext);
         out.writeString(url);
         out.writeString(subreddit);
         out.writeString(author);

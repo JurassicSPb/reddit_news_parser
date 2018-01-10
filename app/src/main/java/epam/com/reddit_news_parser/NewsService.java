@@ -30,23 +30,22 @@ public class NewsService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        networkHelper = new NetworkHelper();
+        networkHelper = NetworkHelper.getNetworkHelper();
     }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         final int loadMore = intent.getIntExtra("loadMore", 0);
-        final int count = intent.getIntExtra("count", 0);
 
         executor.execute(new Runnable() {
             @Override
             public void run() {
                 try {
                     if (loadMore == 1) {
-                        networkHelper.onRequest(OKHttpInstance.getInstance(), 1, count);
+                        networkHelper.onRequest(OKHttpInstance.getInstance(), 1);
                         networkHelper.onResponse();
                     } else {
-                        networkHelper.onRequest(OKHttpInstance.getInstance(), 0, 10);
+                        networkHelper.onRequest(OKHttpInstance.getInstance(), 0);
                         networkHelper.onResponse();
                     }
                 } catch (IOException e) {

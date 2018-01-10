@@ -6,13 +6,13 @@ import okhttp3.OkHttpClient;
  * Created by yuri on 12/27/17.
  */
 
-public class OKHttpInstance {
+class OKHttpInstance {
     private static OkHttpClient okHttpClient = new OkHttpClient();
 
     private OKHttpInstance() {
     }
 
-    public static OkHttpClient getInstance() {
+    static OkHttpClient getInstance() {
         return okHttpClient;
     }
 }
