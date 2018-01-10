@@ -60,7 +60,7 @@ class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
         builder.append("\n").append(title).append("\n\n").append(author).append("\n\n").append(url).append("\n");
 
         builder.setSpan(styleSpan, 0, title.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        builder.setSpan(colorSpan, title.length() + author.length() + 5, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        builder.setSpan(colorSpan, title.length() + author.length() + 6, builder.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
         holder.title.setText(builder);
 

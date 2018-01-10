@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ProgressBar;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,7 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(news.get(position).getUrl())));
         }
     };
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +39,8 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new NewsAdapter(news, clickListener, this);
         recyclerView.setAdapter(adapter);
+
+        progressBar = findViewById(R.id.progress_bar);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -60,6 +64,7 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
                 stopUpdate();// on success stop service (callback)
                 adapter.setNews(news);
                 adapter.notifyDataSetChanged();
+                progressBar.setVisibility(View.GONE);
             }
         };
 
@@ -77,6 +82,7 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
 
     @Override
     public void updateNews() {
+        progressBar.setVisibility(View.VISIBLE);
         intent.putExtra(LOAD_MORE, 1);
         startService(intent);
     }
