@@ -1,15 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:minHeight="100dp"
     >
 
     <TextView
         android:id="@+id/content"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@color/colorAccent"/>
+        android:layout_height="wrap_content"
+        android:background="#FFFDE7"/>
 
-</FrameLayout>
+    <View
+        android:id="@+id/decorator"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#01579B"/>
+
+</LinearLayout>

@@ -62,9 +62,7 @@ class NetworkHelper {
 
             final ListItem listItem = new ListItem(
                     object.getString("title"),
-                    object.getString("thumbnail"),
                     object.getString("url"),
-                    object.getString("subreddit"),
                     object.getString("author")
             );
             news.add(listItem);
