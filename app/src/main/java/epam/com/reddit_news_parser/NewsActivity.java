@@ -21,6 +21,8 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
     private NewsAdapter       adapter;
     private Intent            intent;
     private BroadcastReceiver receiver;
+    private ProgressBar       progressBar;
+    private ProgressBar       mainProgressBar;
     private List<ListItem>          news          = new ArrayList<>();
     private OnListItemClickListener clickListener = new OnListItemClickListener() {
         @Override
@@ -28,7 +30,7 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
             startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse(news.get(position).getUrl())));
         }
     };
-    private ProgressBar progressBar;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,7 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
         recyclerView.setAdapter(adapter);
 
         progressBar = findViewById(R.id.progress_bar);
+        mainProgressBar = findViewById(R.id.main_progress_bar);
 
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
@@ -61,7 +64,7 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
             @Override
             public void onReceive(Context context, Intent intent) {
                 news = intent.getParcelableArrayListExtra("news");
-                stopUpdate();// on success stop service (callback)
+                stopUpdate();
                 adapter.setNews(news);
                 adapter.notifyDataSetChanged();
                 progressBar.setVisibility(View.GONE);
@@ -90,6 +93,7 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
     @Override
     public void stopUpdate() {
         stopService(intent);
+        mainProgressBar.setVisibility(View.GONE);
     }
 
     @Override
