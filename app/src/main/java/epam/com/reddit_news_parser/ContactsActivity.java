@@ -45,7 +45,9 @@ public class ContactsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         news = intent.getParcelableExtra("news");
 
-        // TODO: 1/10/18 adapter clicklistener
+        // TODO: 1/10/18 adapter clicklistener - расшаривание новости
+        // TODO: 1/10/18 При перевороте сохранять позицию (onSaved + позиция адаптера)
+        // TODO: 1/10/18 Сохранение и взятие из БД в офлайн-режиме
     }
 
     @Override
