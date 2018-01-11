@@ -24,7 +24,6 @@ import java.util.List;
 
 public class ContactsActivity extends AppCompatActivity {
     private static int REQUEST_CODE_READ_CONTACTS = 1;
-    private ListView contactList;
     private List<String> contacts = new ArrayList<>();
     private ListItem news;
     private boolean fromInstanceState = false;
@@ -42,7 +41,7 @@ public class ContactsActivity extends AppCompatActivity {
             contacts = savedInstanceState.getStringArrayList("contacts");
         }
 
-        contactList = findViewById(R.id.contactList);
+        final ListView contactList = findViewById(R.id.contactList);
 
         ActivityCompat.requestPermissions(
                 this,

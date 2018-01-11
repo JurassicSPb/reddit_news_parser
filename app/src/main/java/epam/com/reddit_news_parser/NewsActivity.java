@@ -24,6 +24,7 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
     private BroadcastReceiver receiver;
     private ProgressBar       progressBar;
     private ProgressBar       mainProgressBar;
+    private boolean fromInstanceState = false;
     private List<ListItem>          news          = new ArrayList<>();
     private OnListItemClickListener clickListener = new OnListItemClickListener() {
         @Override
@@ -41,6 +42,7 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
 
         if (savedInstanceState != null) {
             news = savedInstanceState.getParcelableArrayList("news");
+            fromInstanceState = true;
         }
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
@@ -84,9 +86,15 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
     @Override
     protected void onStart() {
         super.onStart();
-
+        
         intent = new Intent(this, NewsService.class);
-        startService(intent);
+
+        if (!fromInstanceState) {
+            startService(intent);
+        } else {
+            mainProgressBar.setVisibility(View.GONE);
+            fromInstanceState = false;
+        }
     }
 
     @Override
