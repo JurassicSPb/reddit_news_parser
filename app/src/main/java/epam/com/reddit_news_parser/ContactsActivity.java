@@ -27,12 +27,20 @@ public class ContactsActivity extends AppCompatActivity {
     private ListView contactList;
     private List<String> contacts = new ArrayList<>();
     private ListItem news;
+    private boolean fromInstanceState = false;
+    private ArrayAdapter<String> adapter;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_contacts);
+
+        if (savedInstanceState != null) {
+            fromInstanceState = true;
+            news = savedInstanceState.getParcelable("news");
+            contacts = savedInstanceState.getStringArrayList("contacts");
+        }
 
         contactList = findViewById(R.id.contactList);
 
@@ -42,11 +50,13 @@ public class ContactsActivity extends AppCompatActivity {
                 REQUEST_CODE_READ_CONTACTS
         );
 
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, contacts);
+        contactList.setAdapter(adapter);
+
         Intent intent = getIntent();
         news = intent.getParcelableExtra("news");
 
         // TODO: 1/10/18 adapter clicklistener - расшаривание новости
-        // TODO: 1/10/18 При перевороте сохранять позицию (onSaved + позиция адаптера)
         // TODO: 1/10/18 Сохранение и взятие из БД в офлайн-режиме
     }
 
@@ -55,10 +65,27 @@ public class ContactsActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
 
         if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            loadContacts();
+            if (!fromInstanceState) {
+                loadContacts();
+            } else {
+                updateContacts();
+                fromInstanceState = false;
+            }
+            fromInstanceState = false;
         } else {
             Toast.makeText(this, R.string.contacts_permission, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void updateContacts() {
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelable("news", news);
+        outState.putStringArrayList("contacts", new ArrayList<>(contacts));
     }
 
     private void loadContacts() {
@@ -71,9 +98,7 @@ public class ContactsActivity extends AppCompatActivity {
                 contacts.add(contact);
             }
             cursor.close();
+            adapter.notifyDataSetChanged();
         }
-
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, contacts);
-        contactList.setAdapter(adapter);
     }
 }

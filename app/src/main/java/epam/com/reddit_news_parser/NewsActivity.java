@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -36,6 +38,10 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
+
+        if (savedInstanceState != null) {
+            news = savedInstanceState.getParcelableArrayList("news");
+        }
 
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -88,6 +94,12 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
         progressBar.setVisibility(View.VISIBLE);
         intent.putExtra(LOAD_MORE, 1);
         startService(intent);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putParcelableArrayList("news", new ArrayList<>(news));
     }
 
     @Override
