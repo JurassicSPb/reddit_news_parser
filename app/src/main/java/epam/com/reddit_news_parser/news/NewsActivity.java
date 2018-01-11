@@ -34,13 +34,10 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback, C
     private int               adapterPosition;
     private boolean                 fromInstanceState = false;
     private List<ListItem>          news              = new ArrayList<>();
-    private OnListItemClickListener clickListener     = new OnListItemClickListener() {
-        @Override
-        public void onClick(View v, int position) {
-            DialogFragment dialog = new ChooseDialog();
-            dialog.show(getFragmentManager(), "ChooseDialog");
-            adapterPosition = position;
-        }
+    private OnListItemClickListener clickListener = (v, position) -> {
+        DialogFragment dialog = new ChooseDialog();
+        dialog.show(getFragmentManager(), "ChooseDialog");
+        adapterPosition = position;
     };
 
     @Override
