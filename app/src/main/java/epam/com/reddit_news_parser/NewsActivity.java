@@ -86,7 +86,7 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
     @Override
     protected void onStart() {
         super.onStart();
-        
+
         intent = new Intent(this, NewsService.class);
 
         if (!fromInstanceState) {
