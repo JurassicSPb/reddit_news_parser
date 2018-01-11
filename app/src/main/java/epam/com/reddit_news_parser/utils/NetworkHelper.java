@@ -21,7 +21,7 @@ import okhttp3.Response;
 
 public class NetworkHelper {
     private static       NetworkHelper networkHelper = new NetworkHelper();
-    private static       String        url           = "https://www.reddit.com/r/politics/top";
+    private static       String        url           = "https://www.reddit.com/r/gamernews";
     private static final String        jsonEnd       = ".json";
     private static final String        qCount        = "?count=";
     private static final String        after         = "&after=";

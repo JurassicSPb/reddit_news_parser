@@ -1,5 +1,9 @@
 <resources>
-    <string name="app_name">Reddit politics news</string>
+    <string name="app_name">Reddit game news</string>
     <string name="contacts_permission">Contacts permission is needed</string>
     <string name="contacts">Contacts</string>
+
+    <string name="dialog_choose">Choose action</string>
+    <string name="dialog_open_news">Open news</string>
+    <string name="dialog_share_news">Share news</string>
 </resources>
