@@ -1,4 +1,4 @@
-package epam.com.reddit_news_parser;
+package epam.com.reddit_news_parser.news;
 
 import android.app.Service;
 import android.content.Intent;
@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+
+import epam.com.reddit_news_parser.entities.OKHttpInstance;
+import epam.com.reddit_news_parser.utils.NetworkHelper;
 
 /**
  * Created by yuri on 12/27/17.
@@ -61,6 +64,5 @@ public class NewsService extends Service {
         });
 
         return super.onStartCommand(intent, flags, startId);
-
     }
 }

@@ -1,4 +1,4 @@
-package epam.com.reddit_news_parser;
+package epam.com.reddit_news_parser.utils;
 
 import android.support.annotation.NonNull;
 
@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import epam.com.reddit_news_parser.entities.ListItem;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -18,7 +19,7 @@ import okhttp3.Response;
  * Created by yuri on 12/27/17.
  */
 
-class NetworkHelper {
+public class NetworkHelper {
     private static       NetworkHelper networkHelper = new NetworkHelper();
     private static       String        url           = "https://www.reddit.com/r/politics/top";
     private static final String        jsonEnd       = ".json";
@@ -37,7 +38,7 @@ class NetworkHelper {
         return networkHelper;
     }
 
-    void onRequest(@NonNull OkHttpClient client, int urlState) throws IOException {
+    public void onRequest(@NonNull OkHttpClient client, int urlState) throws IOException {
         if (urlState == 0) {
             url = url + jsonEnd + qCount + counter;
         } else {
@@ -51,7 +52,7 @@ class NetworkHelper {
         responseBody = response.body().string();
     }
 
-    void onResponse() throws JSONException {
+    public void onResponse() throws JSONException {
         final JSONObject data = new JSONObject(responseBody).getJSONObject("data");
         afterId = data.getString("after");
 
@@ -76,7 +77,7 @@ class NetworkHelper {
         }
     }
 
-    List<ListItem> getNews() {
+    public List<ListItem> getNews() {
         return news;
     }
 }

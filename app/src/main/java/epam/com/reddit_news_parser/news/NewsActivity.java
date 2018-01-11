@@ -1,12 +1,10 @@
-package epam.com.reddit_news_parser;
+package epam.com.reddit_news_parser.news;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +14,12 @@ import android.widget.ProgressBar;
 import java.util.ArrayList;
 import java.util.List;
 
+import epam.com.reddit_news_parser.contacts.ContactsActivity;
+import epam.com.reddit_news_parser.utils.OnListItemClickListener;
+import epam.com.reddit_news_parser.R;
+import epam.com.reddit_news_parser.utils.UpdateCallback;
+import epam.com.reddit_news_parser.entities.ListItem;
+
 public class NewsActivity extends AppCompatActivity implements UpdateCallback {
     public final static String BROADCAST_ACTION = "action";
     public final static String LOAD_MORE        = "loadMore";
@@ -24,9 +28,9 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback {
     private BroadcastReceiver receiver;
     private ProgressBar       progressBar;
     private ProgressBar       mainProgressBar;
-    private boolean fromInstanceState = false;
-    private List<ListItem>          news          = new ArrayList<>();
-    private OnListItemClickListener clickListener = new OnListItemClickListener() {
+    private boolean                 fromInstanceState = false;
+    private List<ListItem>          news              = new ArrayList<>();
+    private OnListItemClickListener clickListener     = new OnListItemClickListener() {
         @Override
         public void onClick(View v, int position) {
             Intent intent = new Intent(NewsActivity.this, ContactsActivity.class);

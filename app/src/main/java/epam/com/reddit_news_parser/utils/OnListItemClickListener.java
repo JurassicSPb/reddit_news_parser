@@ -1,4 +1,4 @@
-package epam.com.reddit_news_parser;
+package epam.com.reddit_news_parser.utils;
 
 import android.view.View;
 

@@ -1,4 +1,4 @@
-package epam.com.reddit_news_parser;
+package epam.com.reddit_news_parser.news;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -17,6 +17,10 @@ import android.widget.TextView;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
+
+import epam.com.reddit_news_parser.utils.OnListItemClickListener;
+import epam.com.reddit_news_parser.R;
+import epam.com.reddit_news_parser.entities.ListItem;
 
 /**
  * Created by yuri on 1/9/18.

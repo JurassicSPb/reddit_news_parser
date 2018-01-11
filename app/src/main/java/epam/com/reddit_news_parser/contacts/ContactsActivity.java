@@ -1,4 +1,4 @@
-package epam.com.reddit_news_parser;
+package epam.com.reddit_news_parser.contacts;
 
 import android.Manifest;
 import android.content.ContentResolver;
@@ -17,6 +17,9 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import epam.com.reddit_news_parser.R;
+import epam.com.reddit_news_parser.entities.ListItem;
 
 /**
  * Created by yuri on 1/10/18.
