@@ -40,27 +40,24 @@ public class NewsService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         final int loadMore = intent.getIntExtra("loadMore", 0);
 
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    if (loadMore == 1) {
-                        networkHelper.onRequest(OKHttpInstance.getInstance(), 1);
-                        networkHelper.onResponse();
-                    } else {
-                        networkHelper.onRequest(OKHttpInstance.getInstance(), 0);
-                        networkHelper.onResponse();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                } catch (JSONException e) {
-                    e.printStackTrace();
+        executor.execute(() -> {
+            try {
+                if (loadMore == 1) {
+                    networkHelper.onRequest(OKHttpInstance.getInstance(), 1);
+                    networkHelper.onResponse();
+                } else {
+                    networkHelper.onRequest(OKHttpInstance.getInstance(), 0);
+                    networkHelper.onResponse();
                 }
-
-                Intent broadcastIntent = new Intent(NewsActivity.BROADCAST_ACTION);
-                broadcastIntent.putParcelableArrayListExtra("news", new ArrayList<>(networkHelper.getNews()));
-                sendBroadcast(broadcastIntent);
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
             }
+
+            Intent broadcastIntent = new Intent(NewsActivity.BROADCAST_ACTION);
+            broadcastIntent.putParcelableArrayListExtra("news", new ArrayList<>(networkHelper.getNews()));
+            sendBroadcast(broadcastIntent);
         });
 
         return super.onStartCommand(intent, flags, startId);

@@ -32,16 +32,8 @@ public class ChooseDialog extends DialogFragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
         builder.setMessage(R.string.dialog_choose)
-               .setPositiveButton(R.string.dialog_open_news, new DialogInterface.OnClickListener() {
-                   public void onClick(DialogInterface dialog, int id) {
-                       dialogListener.onDialogPositiveClick(ChooseDialog.this);
-                   }
-               })
-               .setNegativeButton(R.string.dialog_share_news, new DialogInterface.OnClickListener() {
-                   public void onClick(DialogInterface dialog, int id) {
-                       dialogListener.onDialogNegativeClick(ChooseDialog.this);
-                   }
-               });
+               .setPositiveButton(R.string.dialog_open_news, (dialog, id) -> dialogListener.onDialogPositiveClick(ChooseDialog.this))
+               .setNegativeButton(R.string.dialog_share_news, (dialog, id) -> dialogListener.onDialogNegativeClick(ChooseDialog.this));
 
         return builder.create();
     }
