@@ -68,7 +68,7 @@ public class ContactsActivity extends AppCompatActivity {
             sendIntent.setType("text/plain");
             startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.dialog_share_news)));
         });
-        
+
         // TODO: 1/10/18 сохранение в БД (всегда после успешного взятия из сети и при подгрузке, предварительно очищать старые записи) и взятие из БД в офлайн-режиме (при ошибке сети)
     }
 
