@@ -1,6 +1,7 @@
 package epam.com.reddit_news_parser.utils;
 
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -11,6 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import epam.com.reddit_news_parser.entities.ListItem;
+import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -26,8 +29,9 @@ public class NetworkHelper {
     private static final String        qCount        = "?count=";
     private static final String        after         = "&after=";
     private static final int           counter       = 10;
-    private String responseBody;
-    private String afterId;
+    private String          afterId;
+    @Nullable
+    private NetworkCallback callback;
 
     private List<ListItem> news = new ArrayList<>();
 
@@ -48,11 +52,26 @@ public class NetworkHelper {
         final Request request = new Request.Builder()
                 .url(url)
                 .build();
-        final Response response = client.newCall(request).execute();
-        responseBody = response.body().string();
+
+        client.newCall(request)
+              .enqueue(new Callback() {
+                  @Override
+                  public void onFailure(@NonNull Call call, @NonNull IOException e) {
+
+                  }
+
+                  @Override
+                  public void onResponse(@NonNull Call call, @NonNull Response response) throws IOException {
+                      try {
+                          NetworkHelper.this.onResponse(response.body().string());
+                      } catch (JSONException e) {
+                          e.printStackTrace();
+                      }
+                  }
+              });
     }
 
-    public void onResponse() throws JSONException {
+    private void onResponse(@NonNull String responseBody) throws JSONException {
         final JSONObject data = new JSONObject(responseBody).getJSONObject("data");
         afterId = data.getString("after");
 
@@ -74,9 +93,18 @@ public class NetworkHelper {
             listItem.setImage(source.getString("url"));
 
             news.add(listItem);
+
+            if (callback != null) {
+                callback.onResult();
+            }
         }
     }
 
+    public void loadData(@NonNull NetworkCallback callback) {
+        this.callback = callback;
+    }
+
+    @NonNull
     public List<ListItem> getNews() {
         return news;
     }
