@@ -58,8 +58,18 @@ public class ContactsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         news = intent.getParcelableExtra("news");
 
-        // TODO: 1/10/18 adapter clicklistener - расшаривание новости
-        // TODO: 1/10/18 Сохранение и взятие из БД в офлайн-режиме
+        contactList.setOnItemClickListener((parent, view, position, id) -> {
+            Intent sendIntent = new Intent();
+            StringBuilder sendBuilder = new StringBuilder();
+            sendBuilder.append(news.getTitle()).append("\n\n").append(news.getUrl());
+
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, sendBuilder.toString());
+            sendIntent.setType("text/plain");
+            startActivity(Intent.createChooser(sendIntent, getResources().getText(R.string.dialog_share_news)));
+        });
+        
+        // TODO: 1/10/18 сохранение в БД (всегда после успешного взятия из сети и при подгрузке, предварительно очищать старые записи) и взятие из БД в офлайн-режиме (при ошибке сети)
     }
 
     @Override
