@@ -11,13 +11,13 @@ import epam.com.reddit_news_parser.entities.News;
  * Created by yuri on 1/16/18.
  */
 
-public class AppDataBaseImpl {
+public class AppDatabaseImpl {
     @NonNull
     private final AppDatabase             appDatabase;
     @NonNull
     private final NewsToStorageNewsMapper newsToStorageNewsMapper;
 
-    public AppDataBaseImpl(@NonNull AppDatabase appDatabase,
+    public AppDatabaseImpl(@NonNull AppDatabase appDatabase,
                            @NonNull NewsToStorageNewsMapper newsToStorageNewsMapper) {
         this.appDatabase = appDatabase;
         this.newsToStorageNewsMapper = newsToStorageNewsMapper;
@@ -25,5 +25,9 @@ public class AppDataBaseImpl {
 
     public void saveNews(@NonNull List<News> news) {
         appDatabase.newsDao().insert(newsToStorageNewsMapper.map(news));
+    }
+
+    public void deleteNews() {
+        appDatabase.newsDao().deleteAll();
     }
 }

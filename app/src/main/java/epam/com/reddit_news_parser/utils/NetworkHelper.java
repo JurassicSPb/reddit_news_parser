@@ -57,7 +57,9 @@ public class NetworkHelper {
               .enqueue(new Callback() {
                   @Override
                   public void onFailure(@NonNull Call call, @NonNull IOException e) {
-
+                      if (callback != null) {
+                          callback.onFailure();
+                      }
                   }
 
                   @Override

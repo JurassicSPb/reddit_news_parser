@@ -1,11 +1,13 @@
 package epam.com.reddit_news_parser.database.entities;
 
+import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
  * Created by yuri on 1/16/18.
  */
 
+@Entity
 public class StorageNews {
 
     @PrimaryKey(autoGenerate = true)

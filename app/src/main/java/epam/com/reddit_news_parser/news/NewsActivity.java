@@ -12,6 +12,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,11 +77,15 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback, C
         receiver = new BroadcastReceiver() {
             @Override
             public void onReceive(Context context, Intent intent) {
-                news = intent.getParcelableArrayListExtra("news");
+                if (intent.getBooleanExtra("error", false)) {
+                    Toast.makeText(NewsActivity.this, "Connection failure", Toast.LENGTH_SHORT).show();
+                } else {
+                    news = intent.getParcelableArrayListExtra("news");
+                    adapter.setNews(news);
+                    adapter.notifyDataSetChanged();
+                    progressBar.setVisibility(View.GONE);
+                }
                 stopUpdate();
-                adapter.setNews(news);
-                adapter.notifyDataSetChanged();
-                progressBar.setVisibility(View.GONE);
             }
         };
 
