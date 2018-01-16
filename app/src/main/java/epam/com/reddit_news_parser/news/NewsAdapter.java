@@ -20,26 +20,26 @@ import java.util.List;
 
 import epam.com.reddit_news_parser.utils.OnListItemClickListener;
 import epam.com.reddit_news_parser.R;
-import epam.com.reddit_news_parser.entities.ListItem;
+import epam.com.reddit_news_parser.entities.News;
 
 /**
  * Created by yuri on 1/9/18.
  */
 
 class NewsAdapter extends RecyclerView.Adapter<NewsAdapter.ViewHolder> {
-    private List<ListItem>          news;
+    private List<News>              news;
     private OnListItemClickListener clickListener;
     private Context                 context;
     private StyleSpan               styleSpan;
     private ForegroundColorSpan     colorSpan;
 
-    NewsAdapter(List<ListItem> news, OnListItemClickListener clickListener, Context context) {
+    NewsAdapter(List<News> news, OnListItemClickListener clickListener, Context context) {
         this.news = news;
         this.clickListener = clickListener;
         this.context = context;
     }
 
-    void setNews(List<ListItem> news) {
+    void setNews(List<News> news) {
         this.news = news;
     }
 

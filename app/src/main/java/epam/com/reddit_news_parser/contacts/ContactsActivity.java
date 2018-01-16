@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import epam.com.reddit_news_parser.R;
-import epam.com.reddit_news_parser.entities.ListItem;
+import epam.com.reddit_news_parser.entities.News;
 
 /**
  * Created by yuri on 1/10/18.
@@ -28,7 +28,7 @@ import epam.com.reddit_news_parser.entities.ListItem;
 public class ContactsActivity extends AppCompatActivity {
     private static int REQUEST_CODE_READ_CONTACTS = 1;
     private List<String> contacts = new ArrayList<>();
-    private ListItem news;
+    private News news;
     private boolean fromInstanceState = false;
     private ArrayAdapter<String> adapter;
 

@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import epam.com.reddit_news_parser.entities.ListItem;
+import epam.com.reddit_news_parser.entities.News;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.OkHttpClient;
@@ -33,7 +33,7 @@ public class NetworkHelper {
     @Nullable
     private NetworkCallback callback;
 
-    private List<ListItem> news = new ArrayList<>();
+    private List<News> news = new ArrayList<>();
 
     private NetworkHelper() {
     }
@@ -80,7 +80,7 @@ public class NetworkHelper {
         for (int i = 0; i < items.length(); i++) {
             final JSONObject object = items.getJSONObject(i).getJSONObject("data");
 
-            final ListItem listItem = new ListItem(
+            final News news = new News(
                     object.getString("title"),
                     object.getString("url"),
                     object.getString("author")
@@ -90,9 +90,9 @@ public class NetworkHelper {
             final JSONArray images = image.getJSONArray("images");
 
             final JSONObject source = images.getJSONObject(0).getJSONObject("source");
-            listItem.setImage(source.getString("url"));
+            news.setImage(source.getString("url"));
 
-            news.add(listItem);
+            this.news.add(news);
 
             if (callback != null) {
                 callback.onResult();
@@ -105,7 +105,7 @@ public class NetworkHelper {
     }
 
     @NonNull
-    public List<ListItem> getNews() {
+    public List<News> getNews() {
         return news;
     }
 }

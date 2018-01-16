@@ -7,13 +7,20 @@ import android.os.Parcelable;
  * Created by yuri on 1/9/18.
  */
 
-public class ListItem implements Parcelable {
+public class News implements Parcelable {
     private String title;
     private String url;
     private String author;
     private String image;
 
-    public ListItem(String title, String url, String author) {
+    public News(String title, String url, String author, String image) {
+        this.title = title;
+        this.url = url;
+        this.author = author;
+        this.image = image;
+    }
+
+    public News(String title, String url, String author) {
         this.title = title;
         this.url = url;
         this.author = author;
@@ -39,7 +46,7 @@ public class ListItem implements Parcelable {
         this.image = image;
     }
 
-    private ListItem(Parcel in) {
+    private News(Parcel in) {
         title = in.readString();
         url = in.readString();
         author = in.readString();
@@ -58,13 +65,13 @@ public class ListItem implements Parcelable {
         out.writeString(image);
     }
 
-    public static final Parcelable.Creator<ListItem> CREATOR = new Parcelable.Creator<ListItem>() {
-        public ListItem createFromParcel(Parcel in) {
-            return new ListItem(in);
+    public static final Parcelable.Creator<News> CREATOR = new Parcelable.Creator<News>() {
+        public News createFromParcel(Parcel in) {
+            return new News(in);
         }
 
-        public ListItem[] newArray(int size) {
-            return new ListItem[size];
+        public News[] newArray(int size) {
+            return new News[size];
         }
     };
 }

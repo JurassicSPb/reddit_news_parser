@@ -19,7 +19,7 @@ import java.util.List;
 import epam.com.reddit_news_parser.R;
 import epam.com.reddit_news_parser.contacts.ContactsActivity;
 import epam.com.reddit_news_parser.dialogs.ChooseDialog;
-import epam.com.reddit_news_parser.entities.ListItem;
+import epam.com.reddit_news_parser.entities.News;
 import epam.com.reddit_news_parser.utils.OnListItemClickListener;
 import epam.com.reddit_news_parser.utils.UpdateCallback;
 
@@ -33,8 +33,8 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback, C
     private ProgressBar       mainProgressBar;
     private int               adapterPosition;
     private boolean                 fromInstanceState = false;
-    private List<ListItem>          news              = new ArrayList<>();
-    private OnListItemClickListener clickListener = (v, position) -> {
+    private List<News>              news              = new ArrayList<>();
+    private OnListItemClickListener clickListener     = (v, position) -> {
         DialogFragment dialog = new ChooseDialog();
         dialog.show(getFragmentManager(), "ChooseDialog");
         adapterPosition = position;
