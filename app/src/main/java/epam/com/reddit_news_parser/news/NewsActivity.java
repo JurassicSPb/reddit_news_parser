@@ -80,7 +80,7 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback, C
                 if (intent.getBooleanExtra("error", false)) {
                     Toast.makeText(NewsActivity.this, "Connection failure", Toast.LENGTH_SHORT).show();
                 }
-                
+
                 news = intent.getParcelableArrayListExtra("news");
                 adapter.setNews(news);
                 adapter.notifyDataSetChanged();
