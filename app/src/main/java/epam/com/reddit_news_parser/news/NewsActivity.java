@@ -79,12 +79,12 @@ public class NewsActivity extends AppCompatActivity implements UpdateCallback, C
             public void onReceive(Context context, Intent intent) {
                 if (intent.getBooleanExtra("error", false)) {
                     Toast.makeText(NewsActivity.this, "Connection failure", Toast.LENGTH_SHORT).show();
-                } else {
-                    news = intent.getParcelableArrayListExtra("news");
-                    adapter.setNews(news);
-                    adapter.notifyDataSetChanged();
-                    progressBar.setVisibility(View.GONE);
                 }
+                
+                news = intent.getParcelableArrayListExtra("news");
+                adapter.setNews(news);
+                adapter.notifyDataSetChanged();
+                progressBar.setVisibility(View.GONE);
                 stopUpdate();
             }
         };

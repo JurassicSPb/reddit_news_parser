@@ -13,6 +13,7 @@ import java.util.concurrent.ExecutorService;
 import epam.com.reddit_news_parser.database.AppDatabase;
 import epam.com.reddit_news_parser.database.AppDatabaseImpl;
 import epam.com.reddit_news_parser.database.mapper.NewsToStorageNewsMapper;
+import epam.com.reddit_news_parser.database.mapper.StorageNewsToNewsMapper;
 import epam.com.reddit_news_parser.entities.OKHttpInstance;
 import epam.com.reddit_news_parser.utils.ExecutorServiceHelper;
 import epam.com.reddit_news_parser.utils.NetworkCallback;
@@ -40,6 +41,7 @@ public class NewsService extends Service {
         @Override
         public void onFailure() {
             broadcastIntent.putExtra("error", true);
+            broadcastIntent.putParcelableArrayListExtra("news", new ArrayList<>(appDatabase.getNews()));
             sendBroadcast(broadcastIntent);
         }
     };
@@ -60,7 +62,8 @@ public class NewsService extends Service {
 
         appDatabase = new AppDatabaseImpl(
                 Room.databaseBuilder(this, AppDatabase.class, "beacons-database").build(),
-                new NewsToStorageNewsMapper()
+                new NewsToStorageNewsMapper(),
+                new StorageNewsToNewsMapper()
         );
     }
 
