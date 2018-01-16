@@ -7,10 +7,10 @@ import android.support.annotation.Nullable;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.concurrent.Executor;
-import java.util.concurrent.Executors;
+import java.util.concurrent.ExecutorService;
 
 import epam.com.reddit_news_parser.entities.OKHttpInstance;
+import epam.com.reddit_news_parser.utils.ExecutorServiceHelper;
 import epam.com.reddit_news_parser.utils.NetworkCallback;
 import epam.com.reddit_news_parser.utils.NetworkHelper;
 
@@ -19,8 +19,8 @@ import epam.com.reddit_news_parser.utils.NetworkHelper;
  */
 
 public class NewsService extends Service {
-    private NetworkHelper networkHelper;
-    private Executor        executor = Executors.newSingleThreadExecutor();
+    private NetworkHelper   networkHelper;
+    private ExecutorService executor;
     private NetworkCallback callback = new NetworkCallback() {
         @Override
         public void onResult() {
@@ -45,7 +45,9 @@ public class NewsService extends Service {
     public void onCreate() {
         super.onCreate();
 
-        networkHelper = NetworkHelper.getNetworkHelper();
+        networkHelper = NetworkHelper.getInstance();
+        final ExecutorServiceHelper executorServiceHelper = ExecutorServiceHelper.getInstance();
+        executor = executorServiceHelper.getExecutor();
     }
 
     @Override

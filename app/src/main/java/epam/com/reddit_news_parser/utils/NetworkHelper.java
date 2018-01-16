@@ -38,7 +38,7 @@ public class NetworkHelper {
     private NetworkHelper() {
     }
 
-    public static NetworkHelper getNetworkHelper() {
+    public static NetworkHelper getInstance() {
         return networkHelper;
     }
 
